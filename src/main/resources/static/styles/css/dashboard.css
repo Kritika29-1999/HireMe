@@ -1,0 +1,105 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(211,214,255,0.84);
+}
+.tab{
+    position: fixed;
+    width: inherit;
+    background-color: darkblue;
+    height: 10%;
+
+}
+.dbox{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.searchboxparent{
+    width: 50%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.searchbox{
+    height: 50px; /* Set a fixed height for the searchbox */
+    background-color: white;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 70px;
+    font-family: 'Josefin Slab', serif;
+    font-weight: bold;
+    font-size: large;
+
+
+}
+.image:hover{
+    cursor: pointer;
+
+}
+.inner-div {
+    width: 20%;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0,0,0,0.72);
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* CSS for the images */
+.image-item img {
+    width: 100%;
+    height: auto;
+}
+check
+{
+    height: 8%;
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: medium;
+}
+check:hover
+{
+    background-color: white;
+    color: darkblue;
+    cursor: pointer;
+}
+check:active
+{
+    border: black;
+    background-color: rgba(0,148,207,0.78);
+}
+.middlebox{
+    height: 95%;
+    width: 95%;
+    background:white;
+}
+.inline{
+    display: inline-block;
+    padding: 10px;
+}
+
+
+
+
+

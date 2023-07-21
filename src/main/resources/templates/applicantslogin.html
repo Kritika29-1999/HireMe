@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@1;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<script>
+  function redirectToOL() {
+    window.location.href = "/organisation/login";
+  }
+  function redirectToOS() {
+    window.location.href = "/organisation/signup";
+  }
+  function redirectToAS() {
+    window.location.href = "/applicants/signup";
+  }
+</script>
+<div class="container">
+  <div class="left-side">
+    <div class="centered-content" >
+      <h1 class="head"></h1>
+      <br> <br>
+      <br> <br>
+      <br> <br>
+      <br> <br>
+      <br> <br>
+      <button onclick="redirectToOL()">
+        <div class="box" style="display: flex; justify-content: center; align-items: center; background-color: rgba(20,26,69,0.68);line-height: normal"> Login as Organisation </div>
+      </button>
+      <button onclick="redirectToOS()">
+        <div class="box" style="display: flex; justify-content: center; align-items: center; background-color: rgba(20,26,69,0.68);line-height: normal"> Signup as Organisation </div>
+      </button>
+      <button onclick="redirectToAS()">
+        <div class="box" style="display: flex; justify-content: center; align-items: center; background-color: rgba(20,26,69,0.68);line-height: normal"> Signup as Applicant </div>
+      </button>
+    </div>
+  </div>
+  <div class="right-side" >
+    <div id="mainDiv" class="form-container">
+      <h2 class="head"> Applicant Login </h2>
+      <form style="width:80%;margin-left: 10%;" th:action="@{/applicants/logincheck}" method="post">
+        <input type="text" id="email" name="email" placeholder="Email" required>
+        <br>
+        <br>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <br>
+        <br>
+        <button type="submit" onclick="">
+          <div class="box" style="line-height: 71.945px;"> Login in</div>
+        </button>      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

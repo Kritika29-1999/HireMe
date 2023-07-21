@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@1;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<script>
+  function redirectToOL() {
+    window.location.href = "/organisation/login";
+  }
+  function redirectToAL() {
+    window.location.href = "/applicants/login";
+  }
+  function redirectToAS() {
+    window.location.href = "/applicants/signup";
+  }
+</script>
+<div class="container">
+  <div class="left-side">
+    <div class="centered-content" >
+      <h1 class="head"></h1>
+      <br> <br>
+      <br> <br>
+      <br> <br>
+      <br> <br>
+      <br> <br>
+      <button onclick="redirectToOL()">
+        <div class="box" style="display: flex; justify-content: center; align-items: center; background-color: rgba(20,26,69,0.68);line-height: normal"> Login as Organisation </div>
+      </button>
+      <br>
+      <button onclick="redirectToAL()">
+        <div class="box" style="display: flex; justify-content: center; align-items: center;background-color: rgba(20,26,69,0.68)"> Login as Applicant </div>
+      </button>
+      <br>
+      <button onclick="redirectToAS()">
+        <div class="box" style="display: flex; justify-content: center; align-items: center;background-color: rgba(20,26,69,0.68)"> SignUp as Applicant </div>
+      </button>
+    </div>
+
+    <!-- Content for the left side (40%) -->
+  </div>
+  <div class="right-side" >
+    <div id="mainDiv" class="form-container">
+      <h2 class="head"> Organisation Sign Up </h2>
+        <form style="width:80%;margin-left: 10%;" th:action="@{/organisation/submitForm}" th:object="${organisation}" method="post">>
+          <input type="text" id="org_name" name="orgname" placeholder="Organisation Name" required>
+          <br>
+          <br>
+          <input type="email" id="email" name="orgemail" placeholder="Email" required>
+          <br>
+          <br>
+          <div class="password-container">
+            <input type="password" id="password" name="orgpassword" placeholder="Password" required>
+
+            <input type="password" id="reorgpassword" name="reorgpassword" placeholder="Re-Enter Password" required>
+          </div>
+          <br>
+          <br>
+          <input type="text" id="street" name="street" placeholder="Street Address" required>
+          <br>
+          <br>
+          <input type="text" id="city" name="city" placeholder="City" required>
+          <br>
+          <br>
+          <input type="text" id="postcode" name="postcode" placeholder="Postcode" required>
+          <br>
+          <br>
+          <input type="text" id="country" name="country" placeholder="Country" required>
+          <br>
+          <br>
+
+          <input type="tel" id="contact_no" name="orgcontact" required>
+
+          <br>
+          <br>
+          <button type="submit" onclick="">
+            <div class="box" style="line-height: 71.945px;"> Sign up</div>
+          </button>      </form>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
