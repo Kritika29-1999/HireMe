@@ -62,9 +62,9 @@
 </div>
 <div class="dbox" id="mainbox" style="height: 70%;">
   <h1 class="head">Search Your Jobs Here</h1>
-  <form class="searchboxparent" style="width: 60%;" th:action="@{/applicants/submitForm}" th:object="${applicant}" method="post">
-  <input type="text" class="searchbox" style="width: 50%;border: none">
-  <button type="button" class="searchbox" style="width: 20%;margin-left: 5%;background-color: darkblue;color: white;border: none">Search</button>
+  <form class="searchboxparent" style="width: 60%;" th:action="@{/user/search}" method="post">
+  <input type="text" id="searchtext" name="searchtext" class="searchbox" style="width: 50%;border: none">
+  <button type="submit" class="searchbox" style="width: 20%;margin-left: 5%;background-color: darkblue;color: white;border: none">Search</button>
   </form>
 </div>
 

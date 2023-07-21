@@ -15,12 +15,15 @@ public class JobPost {
 
     @Column(name = "job_detail")
     private String detail;
+
     @Column(name = "job_location")
     private String location;
     @Column(name = "job_status")
     private String status;
     @Column(name = "total_applicant")
     private int totalapplicant;
+    @Column(name = "job_title")
+    private String JobTitle;
 
     public int getId() {
         return id;
@@ -68,5 +71,13 @@ public class JobPost {
 
     public void setTotalapplicant(int totalapplicant) {
         this.totalapplicant = totalapplicant;
+    }
+
+    public String getJobTitle() {
+        return JobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        JobTitle = jobTitle;
     }
 }
