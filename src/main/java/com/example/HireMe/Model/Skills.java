@@ -10,7 +10,7 @@ public class Skills {
     @Column(name = "skill_id")
     private int skill_id;
     @Column(name = "skill_name")
-    private String skill_name;
+    private String skillname;
 
     public int getSkill_id() {
         return skill_id;
@@ -20,11 +20,11 @@ public class Skills {
         this.skill_id = skill_id;
     }
 
-    public String getSkill_name() {
-        return skill_name;
+    public String getSkillname() {
+        return skillname;
     }
 
-    public void setSkill_name(String skill_name) {
-        this.skill_name = skill_name;
+    public void setSkillname(String skillname) {
+        this.skillname = skillname;
     }
 }

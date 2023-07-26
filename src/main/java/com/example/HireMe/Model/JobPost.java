@@ -1,6 +1,7 @@
 package com.example.HireMe.Model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "job_post")
@@ -24,6 +25,16 @@ public class JobPost {
     private int totalapplicant;
     @Column(name = "job_title")
     private String JobTitle;
+    @Column(name = "date_posted")
+    private Date dateposted;
+
+    public Date getDateposted() {
+        return dateposted;
+    }
+
+    public void setDateposted(Date dateposted) {
+        this.dateposted = dateposted;
+    }
 
     public int getId() {
         return id;

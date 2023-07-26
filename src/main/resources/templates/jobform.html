@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+    <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+<body>
+
+<div style="height: 25%;background-color: white;display: flex;justify-content: center;align-items: center;">
+    <ul>
+        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif;"><a href="/org/post-job">Post a new Job</a></li>
+        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif"><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif"><a href="/org/hiring-pools">Hiring Pools</a></li>
+        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif"><a href="/org/manage-applications">Manage Applications</a></li>
+    </ul>
+</div>
+<div>
+    <form id="dynamicForm" th:action="@{/org/post-job}" method="post">
+        <div class="slide" style="display: none;">
+            <label for="title">Job Post Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="slide" style="display: none;">
+            <div th:each="skill : ${skillList}">
+                <input type="checkbox" th:id="'skill' + ${skill.getSkill_id()}" th:name="'skills'" th:value="${skill.getSkillname()}">
+                <label th:for="'skill' + ${skill.getSkill_id()}" th:text="${skill.getSkillname()}"></label>
+            </div>
+        </div>
+
+        <div class="slide" style="display: none;">
+            <label for="location">Job Location:</label>
+            <input type="text" id="location" name="location" required>
+        </div>
+
+        <div class="slide" style="display: none;">
+            <label for="desc">Description:</label>
+            <input type="text" id="desc" name="desc" required>
+        </div>
+
+
+        <!-- Add more slides as needed -->
+
+        <button type="button" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+        <button type="button" id="nextBtn" onclick="changeSlide(1)">Next</button>
+        <button type="submit" id="submitBtn" style="display: none;">Submit</button>
+
+    </form>
+</div>
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn'); // Add this line
+
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function showSlide(n) {
+        slides[currentSlide].style.display = 'none';
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].style.display = 'block';
+
+        // Show or hide buttons based on the current slide index
+        if (currentSlide === 0) {
+            prevBtn.style.display = 'none'; // Hide previous button on the first slide
+        } else {
+            prevBtn.style.display = 'block'; // Show previous button on other slides
+        }
+
+        if (currentSlide === slides.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+        } else {
+            nextBtn.style.display = 'block';
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    function changeSlide(n) {
+        showSlide(currentSlide + n);
+    }
+
+    showSlide(currentSlide);
+</script>
+</body>
+</html>

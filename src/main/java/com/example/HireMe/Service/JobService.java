@@ -1,5 +1,6 @@
 package com.example.HireMe.Service;
 
+import com.example.HireMe.Model.Applicant;
 import com.example.HireMe.Model.JobPost;
 import com.example.HireMe.Repository.JobPostRepository;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,11 @@ public class JobService {
         return jobPostRepository.findByJobTitleOrDetailContainingIgnoreCase(text);
 
     }
+    public void save(JobPost jobPost){
+
+        jobPostRepository.save(jobPost);
+
+    }
+
 }
 

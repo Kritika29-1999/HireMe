@@ -19,9 +19,6 @@ public class ApplicantService {
     public Applicant findByEmail(String email) {
         return applicantRepository.findByEmail(email);
     }
-    public List<Applicant> findAll(){
-        return applicantRepository.findAll();
-    }
 
     public boolean authenticate(String email, String password) {
         Applicant applicant = findByEmail(email);

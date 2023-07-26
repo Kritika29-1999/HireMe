@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/styles/css/result.css}" rel="stylesheet" />
+    <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+
 </head>
 <body>
+<div class="scale-up-center" style="height: 200px;width: 200px;"></div>
+<table>
 
+    <tbody>
+        <tr th:each="job : ${jp}">
+            <td>
+            <div style="height: fit-content; display:inline-block;width: 40vw;box-shadow: black;padding-top: 5px;padding-bottom: 10px;padding-left:10px;border-color: #393ac6;border-style: double">
+
+            <p style="display: inline-block;width:max-content;text-align: left;float: right;font-size: small;
+    padding-right: 10px; color: rgba(85,85,85,0.78)" th:text="${job.dateposted}">No Posting date</p>
+                <p style="display: inline-block;text-align: right;" class="jobname" th:text="${job.JobTitle}">No Job name</p>
+
+               <p>Location: </p> <p th:text=" ${job.location}">No location</p>
+            <p th:text="${job.detail}">No status</p>
+            <p th:text="${job.totalapplicant}">0</p>
+            <button class="box" style="line-height: 71.945px;">Apply Now</button>
+            </div>
+            </td>
+        </tr>
+        <!-- If the list is empty, display a message -->
+        <tr th:if="${jp.empty}">
+            <td colspan="5">No jobs found.</td>
+        </tr>
+    <!-- Iterate over the list jp -->
+
+    </tbody>
+</table>
 </body>
 </html>

@@ -41,9 +41,14 @@ public class ApplicationContoller {
     @PostMapping("/search")
     public String submitForm(@RequestParam("searchtext") String searchtext, Model model) {
        List<JobPost> jp = jobService.searchJobpost(searchtext);
-        model.addAttribute(jp);
-        return "profilepage";
+        for (JobPost item : jp) {
+            System.out.println(item.getJobTitle());
+        }
+
+        model.addAttribute("jp",jp);
+        return "jobresults";
     }
+
 
 
 

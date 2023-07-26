@@ -1,10 +1,17 @@
 package com.example.HireMe.Model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 
 @Entity
 @Table(name = "organisation")
-public class Organisation {
+public class Organisation implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "org_reg_no")
@@ -14,7 +21,7 @@ public class Organisation {
     @Column(name = "email")
     private String orgemail;
     @Column(name = "password")
-    private String orgpassword;
+    private String password;
 
     @Column(name = "contant_no")
     private String orgcontact;
@@ -26,6 +33,16 @@ public class Organisation {
     private String postcode;
     @Column(name = "country")
     private String country;
+    @Column(name = "date_joined")
+    private Date datejoined;
+
+    public Date getDatejoined() {
+        return datejoined;
+    }
+
+    public void setDatejoined(Date datejoined) {
+        this.datejoined = datejoined;
+    }
 
     public String getStreet() {
         return street;
@@ -83,14 +100,6 @@ public class Organisation {
         this.orgemail = orgemail;
     }
 
-    public String getOrgpassword() {
-        return orgpassword;
-    }
-
-    public void setOrgpassword(String orgpassword) {
-        this.orgpassword = orgpassword;
-    }
-
 
 
     public String getOrgcontact() {
@@ -99,5 +108,52 @@ public class Organisation {
 
     public void setOrgcontact(String orgcontact) {
         this.orgcontact = orgcontact;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_ORGANISATION"));
+
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return orgemail;
+    }
+
+
+    public String getEmail() {
+        return orgemail;
+    }
+
+    public void setEmail(String email) {
+        this.orgemail = email;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
