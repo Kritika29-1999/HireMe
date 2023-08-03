@@ -144,6 +144,36 @@ li:hover {
     cursor: pointer;
 }
 
+.navbar {
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    margin-left: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: normal;
+    transition: color 0.3s; /* Add transition for smooth color change */
+}
+
+.navbar a:hover {
+    color: #8a2be2; /* Change link color on hover */
+}
+
 
 
 

@@ -7,6 +7,7 @@ import com.example.HireMe.Repository.JobSkillsRepository;
 import com.example.HireMe.Repository.SkillsRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,4 +44,9 @@ public class SkillsService {
         return skillsRepository.findSkillsBySkillname(name);
     }
 
+
+    public Skills findbyid(int skillId) {
+
+        return skillsRepository.findSkillsBySkill_id(skillId);
+    }
 }

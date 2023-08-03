@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Beautiful Bluish Gradient Background</title>
+  <link th:href="@{/styles/css/result.css}" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: hsla(259, 84%, 78%, 1);
+      background: linear-gradient(90deg, hsla(259, 84%, 78%, 1) 0%, hsla(206, 67%, 75%, 1) 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Apply Now</h1>
+  <form id="applicationForm" th:action="@{/api/v1/files/upload}" method="post"  enctype="multipart/form-data">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" th:value="${applicant.getFirstname()}" disabled>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" th:value="${applicant.getLastname()}" disabled>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${applicant.getEmail()}" disabled>
+
+    <label for="resume">Resume:</label>
+    <input type="file" accept="application/pdf" id="resume" name="resume" required>
+
+    <label for="message">Cover Letter:</label>
+    <textarea id="message" name="message" rows="8" style="width: 100%" required></textarea>
+    <input type="hidden" name="jobpost" id="jobpost" th:value="${jobpost.getId()}" />
+
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<!-- Black Overlay -->
+<div class="blackcontainer" id="blackcontainer"></div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <span class="close-btn" onclick="hidePopup()">&times;</span>
+  <div class="popup-content">
+    <h1>Confirmation</h1>
+    <p>Confirm you have all the skills mentioned below.</p>
+    <ul>
+      <li th:each="str : ${skills}" th:text="${str}">Default Value</li>
+    </ul>
+    <div class="buttons-container">
+      <button class="ok-btn" onclick="nextPopup()">Next</button>
+      <button class="cancel-btn" onclick="hidePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="popup" id="popup2">
+  <span class="close-btn" onclick="hidePopup()">&times;</span>
+  <div class="popup-content">
+    <h1>Confirmation</h1>
+    <p>Are you sure you want to submit this application?</p>
+    <div class="buttons-container">
+      <button class="ok-btn" onclick="backPopup()">Back</button>
+      <button class="ok-btn" onclick="submitApplication()">Submit</button>
+      <button class="cancel-btn" onclick="hidePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('applicationForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent form submission
+    showPopup();
+  });
+
+  function showPopup() {
+    const popup = document.getElementById('popup');
+    const popup2 = document.getElementById('popup2');
+
+    const blackContainer = document.getElementById('blackcontainer');
+    popup.style.display = 'block';
+    popup2.style.display = 'none';
+
+    blackContainer.style.display = 'block';
+  }
+  function backPopup() {
+    const popup = document.getElementById('popup');
+    const popup2 = document.getElementById('popup2');
+
+    const blackContainer = document.getElementById('blackcontainer');
+    popup2.style.display = 'none';
+
+    popup.style.display = 'block';
+    blackContainer.style.display = 'block';
+  }
+
+  function hidePopup() {
+    const popup2 = document.getElementById('popup2');
+
+    const popup = document.getElementById('popup');
+    const blackContainer = document.getElementById('blackcontainer');
+    popup.style.display = 'none';
+    popup2.style.display = 'none';
+
+    blackContainer.style.display = 'none';
+  }
+  function nextPopup() {
+    const popup = document.getElementById('popup');
+    const popup2 = document.getElementById('popup2');
+    const blackContainer = document.getElementById('blackcontainer');
+    popup.style.display = 'none';
+    popup2.style.display = 'block';
+
+    blackContainer.style.display = 'block';
+  }
+
+  function submitApplication() {
+
+
+    form.submit();
+  }
+</script>
+</body>
+</html>

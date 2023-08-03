@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/applicants/dashboard").authenticated()
                 .antMatchers("/applicants/**").permitAll()
                 .antMatchers("/organisation/**").permitAll()
+                .antMatchers("/api/v1/files/upload").permitAll()
 
 
                 .antMatchers("/styles/**").permitAll() // URLs that are accessible without authentication

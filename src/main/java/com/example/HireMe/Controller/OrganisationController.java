@@ -1,14 +1,9 @@
 package com.example.HireMe.Controller;
 
-import com.example.HireMe.Model.Applicant;
-import com.example.HireMe.Model.JobPost;
-import com.example.HireMe.Model.Organisation;
-import com.example.HireMe.Model.Skills;
-import com.example.HireMe.Repository.OrganisationRepository;
+import com.example.HireMe.Model.*;
+import com.example.HireMe.Repository.ApplicantJobHistoryRepository;
 import com.example.HireMe.Service.LocalOrgDetailsService;
 import com.example.HireMe.Service.OrganisationService;
-import com.example.HireMe.Service.SkillsService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +24,7 @@ import java.util.List;
 public class OrganisationController {
     private final LocalOrgDetailsService localOrgDetailsService;
     private final OrganisationService organisationService;
+
 
     public OrganisationController(LocalOrgDetailsService localOrgDetailsService, OrganisationService organisationService) {
         this.localOrgDetailsService = localOrgDetailsService;
@@ -63,20 +59,6 @@ public class OrganisationController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
-//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//            if (authentication != null) {
-//                Object principal = authentication.getPrincipal();
-//                // Check if the principal is an instance of UserDetails and then access user details
-//                if (principal instanceof Applicant) {
-//                    Applicant userDetails = (Applicant) principal;
-//                    String username = userDetails.getEmail();
-//                    // ...
-//                }
-//            }
-//            if (authentication != null && authentication.getPrincipal() !=null) {
-//                Applicant applicant = (Applicant) authentication.getPrincipal();
-            // Access and use the user details as needed
-//            }
             return "redirect:/org/dashboard";
         } else {
             model.addAttribute("error", "Invalid email or password");
@@ -94,8 +76,4 @@ public class OrganisationController {
 
     }
 
-//    @GetMapping("/all")
-//    public List<Applicant> getAllApplicants() {
-//        return applicantRepository.findAll();
-//    }
 

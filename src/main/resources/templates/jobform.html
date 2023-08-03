@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+
     <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
     <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
 
@@ -11,15 +13,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@100&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     <title>Dashboard</title>
+
 </head>
+
 <body>
 
-<div style="height: 25%;background-color: white;display: flex;justify-content: center;align-items: center;">
+<div class="navbar">
     <ul>
-        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif;"><a href="/org/post-job">Post a new Job</a></li>
-        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif"><a href="/org/manage-jobs">Manage existing Jobs</a></li>
-        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif"><a href="/org/hiring-pools">Hiring Pools</a></li>
-        <li style="margin: 30px;font-family: 'Nanum Myeongjo', serif"><a href="/org/manage-applications">Manage Applications</a></li>
+        <li><a href="/org/post-job">Post a new Job</a></li>
+        <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+        <li><a href="/org/hiring-pools">Hiring Pools</a></li>
+        <li><a href="/org/manage-applications">Manage Applications</a></li>
     </ul>
 </div>
 <div>

@@ -21,7 +21,9 @@
                <p>Location: </p> <p th:text=" ${job.location}">No location</p>
             <p th:text="${job.detail}">No status</p>
             <p th:text="${job.totalapplicant}">0</p>
-            <button class="box" style="line-height: 71.945px;">Apply Now</button>
+                <a th:href="@{/user/apply/{id}(id=${job.id})}">
+                    <button class="box" style="line-height: 71.945px;">Apply Now</button>
+                </a>
             </div>
             </td>
         </tr>

@@ -37,5 +37,9 @@ public class ApplicantService {
     }
 
 
+    public Applicant findByID(int appid) {
+        Applicant applicant = applicantRepository.findApplicantById(appid);
+        return applicant;
+    }
 }
 

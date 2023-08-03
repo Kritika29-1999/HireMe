@@ -2,9 +2,168 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Jobs</title>
+    <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+    <style>
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        th {
+            background-color: #8a2be2; /* Purple color for table heading */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Grey color for even rows */
+        }
+
+        tr:nth-child(odd) {
+            background-color: white; /* White color for odd rows */
+        }
+
+        td p {
+            margin: 0;
+        }
+
+        /* Popup Box Styling */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .popup-buttons button {
+            margin-left: 10px;
+        }
+        .job-details {
+            max-height: 40px; /* Set the initial max-height to show only a few lines of text */
+            overflow: hidden;
+            width: fit-content%;
+        }
+
+        .expanded {
+            max-height: none; /* Expand to show full description */
+        }
+
+        .see-more-button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+    </style>
+
 </head>
 <body>
+<script>
+
+    function showFullDescription(event) {
+        const target = event.target;
+        const jobDetailsElement = target.previousElementSibling;
+
+        if (jobDetailsElement.classList.contains("expanded")) {
+            jobDetailsElement.style.maxHeight = "40px"; // Show only a few lines of text
+            jobDetailsElement.classList.remove("expanded");
+            target.textContent = "See More";
+        } else {
+            jobDetailsElement.style.maxHeight = "none"; // Expand to show full description
+            jobDetailsElement.classList.add("expanded");
+            target.textContent = "See Less";
+        }
+    }
+
+
+</script>
+<div class="navbar" >
+    <ul>
+        <li><a href="/org/post-job">Post a new Job</a></li>
+        <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+        <li><a href="/org/hiring-pools">Hiring Pools</a></li>
+        <li><a href="/org/manage-applications">Manage Applications</a></li>
+    </ul>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Job Title</th>
+        <th>Posted Date</th>
+        <th>Total Applicants</th>
+        <th>Status</th>
+        <th>Job Details</th>
+        <th>Job Location</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <!-- Loop through jobPosts and display each row -->
+    <tr th:each="job, rowStat : ${jobPosts}">
+        <td>
+            <p class="job-name" th:text="${job.getJobTitle()}">Software Engineer</p>
+        </td>
+        <td>
+            <p class="posted-date" th:text="${job.getDateposted()}">July 26, 2023</p>
+        </td>
+        <td>
+            <p class="total-applicants" th:text="${job.getTotalapplicant()}">50</p>
+        </td>
+        <td>
+            <p class="job-status" th:text="${job.getStatus()}">Open</p>
+        </td>
+        <td>
+            <p class="job-details" th:text="${job.getDetail()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo augue eu massa pellentesque, et euismod dolor semper. Sed volutpat ligula quis risus pellentesque, id bibendum eros varius.</p>
+            <button class="see-more-button" onclick="showFullDescription(event)">See More</button>
+        </td>
+        <td>
+            <p class="job-location" th:text="${job.getLocation()}">London, UK</p>
+        </td>
+        <td>
+            <!-- Add an onclick event to call the JavaScript function openPopup() -->
+            <a href="#" onclick="openPopup(rowStat)">Edit</a>
+        </td>
+    </tr>
+    <!-- If the list is empty, display a message -->
+    <tr th:if="${jobPosts.isEmpty()}">
+        <td colspan="7">No jobs found.</td>
+    </tr>
+    </tbody>
+</table>
+
+
 
 </body>
 </html>
