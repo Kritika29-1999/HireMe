@@ -13,6 +13,7 @@ import com.example.HireMe.Model.JobPost;
 import com.example.HireMe.Model.Skills;
 import com.example.HireMe.Repository.ApplicantJobHistoryRepository;
 import com.example.HireMe.Service.ApplicantJobHistoryService;
+import com.example.HireMe.Service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -41,6 +42,8 @@ public class FileController {
     ApplicantJobHistoryService applicantJobHistoryService;
     @Autowired
     ApplicantJobHistoryRepository applicantJobHistoryRepository;
+    @Autowired
+    JobService jobService;
 
     //List all file name
     @GetMapping
@@ -65,6 +68,8 @@ public class FileController {
         // For demonstration purposes, we'll just print the file name and other form fields.
         JobPost jobPost1 = new JobPost();
         jobPost1.setId(jobPost);
+        jobService.update(jobPost,jobService.getjobPostbyId(jobPost).getTotalapplicant()+1);
+
 
        String url =  fileService.uploadFile(file);
         ApplicantJobHistory applicantJobHistory = new ApplicantJobHistory();

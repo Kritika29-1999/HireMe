@@ -1,10 +1,7 @@
 package com.example.HireMe.Controller;
 
 import com.example.HireMe.Functions;
-import com.example.HireMe.Model.ApplicantJobHistory;
-import com.example.HireMe.Model.JobPost;
-import com.example.HireMe.Model.Organisation;
-import com.example.HireMe.Model.Skills;
+import com.example.HireMe.Model.*;
 import com.example.HireMe.Repository.ApplicantJobHistoryRepository;
 import com.example.HireMe.Repository.JobPostRepository;
 import com.example.HireMe.Service.JobService;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -96,11 +94,7 @@ public class OrgUserController {
         model.addAttribute("applicants",applicantJobHistory);
         return "manageapplicationmain";
     }
-    @GetMapping("/hiring-pools")
-    public String openhiring( Model model) {
 
-        return "hiringpooldashboard";
-    }
 
 
 

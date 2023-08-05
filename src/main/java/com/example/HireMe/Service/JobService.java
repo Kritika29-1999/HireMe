@@ -8,10 +8,12 @@ import com.example.HireMe.Repository.JobPostRepository;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class JobService {
     private JobPostRepository jobPostRepository;
     private AuthenticationCredentials authenticationCredentials = new AuthenticationCredentials();
@@ -36,6 +38,15 @@ public class JobService {
 
         jobPostRepository.save(jobPost);
 
+    }
+
+    public void update(int id, int totalA){
+        jobPostRepository.updateTotalApplicant( id, totalA);
+
+
+    }
+    public JobPost getjobPostbyId(int id){
+       return  jobPostRepository.getJobPostsById(id);
     }
 
 }

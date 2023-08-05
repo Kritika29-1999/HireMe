@@ -1,6 +1,7 @@
 package com.example.HireMe;
 
 import com.example.HireMe.Model.Applicant;
+import com.example.HireMe.Model.HiringPoolSkills;
 import com.example.HireMe.Model.Organisation;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +13,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Functions {
     public Applicant getApplicant(){
@@ -34,5 +37,27 @@ public class Functions {
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         return date;
     }
+    public boolean checkIfListAExists(List<List<HiringPoolSkills>> groupedDataList, List<String> listA) {
+        List<Set<String>> groupedDataSets = new ArrayList<>();
+        for (List<HiringPoolSkills> groupedList : groupedDataList) {
+            Set<String> skillNamesSet = groupedList.stream()
+                    .map(item -> item.getSkillid().getSkillname())
+                    .collect(Collectors.toSet());
+            groupedDataSets.add(skillNamesSet);
+        }
+
+        Set<String> listASet = new HashSet<>(listA);
+
+        for (Set<String> groupSet : groupedDataSets) {
+            if (groupSet.containsAll(listASet)&&groupSet.size()==listASet.size()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 
 }
+

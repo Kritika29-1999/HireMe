@@ -1,0 +1,72 @@
+.head {
+    background-color: rgba(0, 0, 0, 0.80);
+    height: 30%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h2 {
+    animation: zoomOut 2s;
+}
+
+@keyframes zoomOut {
+    0% {
+        transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.table-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.plus-button {
+    background-color: #310A31;
+    color: #F4ECD6;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.plus-button:hover {
+    background-color: #847996;
+}
+
+.no-data-msg {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ccc;
+    margin-top: 40px;
+}

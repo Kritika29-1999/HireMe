@@ -3,6 +3,7 @@ package com.example.HireMe.Repository;
 import com.example.HireMe.Model.JobPost;
 import com.example.HireMe.Model.Organisation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,8 @@ public interface JobPostRepository extends JpaRepository<JobPost,Long> {
     @Query("SELECT j FROM JobPost j WHERE j.posted_by.id = :orgId")
 
     List<JobPost> findJobPostByPostedby(@Param("orgId") int id);
+    @Modifying
+    @Query("UPDATE JobPost e SET e.totalapplicant = :totalApplicant WHERE e.id = :id")
+    void updateTotalApplicant(@Param("id") int id, @Param("totalApplicant") int totalA);
+    JobPost getJobPostsById(int id);
 }

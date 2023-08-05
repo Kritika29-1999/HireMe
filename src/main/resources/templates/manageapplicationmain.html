@@ -113,7 +113,7 @@
     <div class="date" th:text="${applicant.getDate()}">Application Date: 2023-08-15</div>
     <div class="status" th:text="${applicant.getStatus()}">Status: Submitted</div>
     <button class="edit-button" th:data="${applicant.getId()}" onclick="openModal(this)">Accept/Decline</button>
-    <form  th:action="@{/org/hiring-pools}">
+    <form  th:action="@{/pool/dashboard}">
       <button class="edit-button" th:data="${applicant.getId()}" type="submit">Refer</button>
     </form>
 

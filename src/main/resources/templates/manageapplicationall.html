@@ -9,6 +9,7 @@
       margin: 0;
     }
 
+
     .container {
       max-width: 80%;
       margin: 30px auto;
@@ -43,7 +44,6 @@
       margin-bottom: 5px;
     }
 
-
     .job-location {
       font-size: 16px;
       color: #847996;
@@ -66,10 +66,34 @@
       font-size: 16px;
       color: #847996;
     }
+
+    .manage {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .manage:hover {
+      background-color: #555;
+    }
   </style>
 </head>
 <body>
-<div class="container" >
+
+<div class="navbar">
+  <ul>
+    <li><a href="/org/post-job">Post a new Job</a></li>
+    <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+    <li><a href="/pool/dashboard">Hiring Pools</a></li>
+    <li><a href="/org/manage-applications">Manage Applications</a></li>
+  </ul>
+</div>
+
+<div class="container">
 
   <div class="job-post" th:each="jobPost : ${jobposts}">
     <div class="job-post-content">
@@ -81,10 +105,8 @@
     </div>
     <form method="post" th:action="@{/org/showApplicants}">
       <input type="hidden" name="jobPostId" th:value="${jobPost.id}" />
-
       <button class="manage" type="submit">See All Applications</button>
     </form>
-
   </div>
 </div>
 </body>
