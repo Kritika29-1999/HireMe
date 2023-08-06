@@ -14,7 +14,7 @@ public class ReferredCandidateHistory {
     private Organisation refby;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "referred_to", nullable = false)
-    private Organisation refto;
+    private HiringPools refto;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "referred_candidate", nullable = false)
     private Applicant refcandidate;
@@ -38,11 +38,11 @@ public class ReferredCandidateHistory {
         this.refby = refby;
     }
 
-    public Organisation getRefto() {
+    public HiringPools getRefto() {
         return refto;
     }
 
-    public void setRefto(Organisation refto) {
+    public void setRefto(HiringPools refto) {
         this.refto = refto;
     }
 

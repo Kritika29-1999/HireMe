@@ -80,6 +80,7 @@ public class OrgUserController {
     public String showApplicants(@RequestParam("jobPostId") int jobPostId, Model model) {
         List<ApplicantJobHistory> applicantJobHistory = applicantJobHistoryServiceRepository.getApplicantJobHistoryByJob_id(jobPostId);
         model.addAttribute("applicants",applicantJobHistory);
+        model.addAttribute("jobPostId",jobPostId);
 
         return "manageapplicationmain";
     }

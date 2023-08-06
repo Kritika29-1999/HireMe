@@ -24,4 +24,6 @@ public class OrganisationHiringPoolsService {
     public void saveorganisationpool(OrganisationHiringPools organisationHiringPools){
         organisationHiringPoolsRepository.save(organisationHiringPools);
     }
+
+
 }

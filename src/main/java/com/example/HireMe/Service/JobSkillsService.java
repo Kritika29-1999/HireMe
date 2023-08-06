@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class JobSkillsService {
@@ -22,5 +24,16 @@ public class JobSkillsService {
         JobPost jobPost = new JobPost();
         jobPost.setId(jobId);
         return jobSkillsRepository.findJobSkillsByJobPost(jobPost);
+    }
+    public List< String> findskilllistfromjob(int jobId) {
+        JobPost jobPost = new JobPost();
+        jobPost.setId(jobId);
+        List<JobSkills> jobSkillsList = jobSkillsRepository.findJobSkillsByJobPost(jobPost);
+        List<String> skillNames = jobSkillsList.stream()
+                .map(jobskill -> jobskill.getSkills().getSkillname())
+                .collect(Collectors.toList());
+
+
+        return skillNames;
     }
 }

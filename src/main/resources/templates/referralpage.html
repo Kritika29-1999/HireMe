@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+  <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+  <link th:href="@{/styles/css/hiringpool.css}" rel="stylesheet" />
+  <title>Hiring Pools</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+
+    .head {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    /* Other styles... */
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      color: #333;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .no-data-msg {
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+    }
+
+    .btn-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .action-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .action-btn:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+
+    .action-btn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <ul>
+    <li><a href="/org/post-job">Post a new Job</a></li>
+    <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+    <li><a href="/pool/dashboard">Hiring Pools</a></li>
+    <li><a href="/org/manage-applications">Manage Applications</a></li>
+  </ul>
+</div>
+
+<div class="head">
+  <h2>Refer your perfect applicant</h2>
+</div>
+
+<div class="table-container">
+  <th:block th:if="${orgsubscribedpools.size() > 0}">
+    <table class="table">
+      <tr>
+        <th>Serial Number</th>
+        <th>Pool Name</th>
+        <th>List of Skills</th>
+        <th>Percentage of Match</th>
+        <th>Select</th>
+      </tr>
+      <tr th:each="hiringPool, index : ${orgsubscribedpools}">
+        <td th:text="${index.count}"></td>
+        <td th:text="${hiringPool.getPoolid().getPool_name()}"></td>
+        <td>
+            <li>SkillList</li>
+        </td>
+        <td>100%</td>
+        <td><input type="checkbox" class="checkbox-input" /></td>
+      </tr>
+    </table>
+  </th:block>
+  <p class="no-data-msg" th:unless="${orgsubscribedpools.size() > 0}">No hiring pools found.</p>
+</div>
+
+<div class="btn-container">
+  <button class="action-btn" id="referBtn" disabled>Refer Selected</button>
+</div>
+
+<!-- JavaScript code to enable/disable the "Refer Selected" button -->
+<script>
+  const checkboxInputs = document.querySelectorAll('.checkbox-input');
+  const referBtn = document.getElementById('referBtn');
+
+  checkboxInputs.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      referBtn.disabled = !checkboxInputs.some((input) => input.checked);
+    });
+  });
+</script>
+
+</body>
+</html>
