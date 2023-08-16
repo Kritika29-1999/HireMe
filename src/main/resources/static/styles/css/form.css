@@ -1,13 +1,15 @@
 body, html {
-    height: 100%;
     margin: 0;
     padding: 0;
+    height: 100%;
+    font-family: 'Quicksand', sans-serif;
+
 }
 
 
 .container {
     display: flex;
-    height: 100%;
+    height: inherit;
 }
 
 .left-side {
@@ -27,8 +29,8 @@ body, html {
 
 .box {
     text-align: center;
-    width: 448.681px;
-    height: 71.945px;
+    width: 370.681px;
+    height: 60.945px;
     background: rgba(57, 54, 198, 0.25);
     margin: 10px;
     color: white;
@@ -40,17 +42,18 @@ body, html {
     transition: background-color 0.3s;
 }
 .box:hover {
-    background-color: rgba(57, 54, 198, 0.5); /* Update background color on hover */
+    background-color: rgba(57, 54, 198, 0.5);
 }
 
 .box:active {
-    background-color: rgba(57, 54, 198, 0.75); /* Update background color when clicked */
+    background-color: rgba(57, 54, 198, 0.75);
 }
 .head{
 
     text-align: center;
     color: darkblue;
-    font-family: 'Ysabeau Office', sans-serif;    font-size: 45px;
+    font-family: 'Ysabeau Office', sans-serif;
+    font-size: 45px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -69,10 +72,11 @@ button {
 .form-container {
     background-color: transparent;
     width: 70%;
+    height: fit-content;
     margin: 0 10%;
 }
 
-.form-container input {
+.form-container input,textarea {
     font-family: 'Josefin Slab', serif;
     letter-spacing: 1px;
     font-size: medium;
@@ -94,7 +98,7 @@ button {
 
 .password-container input {
     flex: 1;
-    margin-right: 10px; /* Adjust the spacing between the password fields */
+    margin-right: 10px;
 }
 
 

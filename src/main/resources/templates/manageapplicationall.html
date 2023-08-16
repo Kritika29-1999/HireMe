@@ -2,10 +2,13 @@
 <html>
 <head>
   <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
   <title>Job Posts</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Quicksand', sans-serif;
       background-color: #f5f5f5;
       margin: 0;
     }
@@ -84,6 +87,11 @@
   </style>
 </head>
 <body>
+<script>
+  function logout(){
+    window.location.href = "/session/logout";
+  }
+</script>
 
 <div class="navbar">
   <ul>
@@ -91,6 +99,8 @@
     <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
     <li><a href="/pool/dashboard">Hiring Pools</a></li>
     <li><a href="/org/manage-applications">Manage Applications</a></li>
+    <li onclick="logout()">&#x23FB;</li>
+
   </ul>
 </div>
 

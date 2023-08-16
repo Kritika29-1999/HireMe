@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <title>Manage Jobs</title>
     <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+    <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
     <style>
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f5f5f5;
+        }
 
 
         table {
             width: 100%;
             border-collapse: collapse;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
         }
 
         th, td {
@@ -29,42 +39,19 @@
         }
 
         tr:nth-child(odd) {
-            background-color: white; /* White color for odd rows */
+            background-color: #ffffff; /* White color for odd rows */
         }
 
         td p {
             margin: 0;
         }
 
-        /* Popup Box Styling */
-        .popup-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
 
-        .popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .popup-buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
 
         .popup-buttons button {
             margin-left: 10px;
         }
+
         .job-details {
             max-height: 40px; /* Set the initial max-height to show only a few lines of text */
             overflow: hidden;
@@ -89,7 +76,9 @@
 </head>
 <body>
 <script>
-
+    function logout(){
+        window.location.href = "/session/logout";
+    }
     function showFullDescription(event) {
         const target = event.target;
         const jobDetailsElement = target.previousElementSibling;
@@ -107,12 +96,14 @@
 
 
 </script>
-<div class="navbar" >
+<div class="navbar">
     <ul>
-        <li><a href="/org/post-job">Post a new Job</a></li>
-        <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+        <li><a href="/org/post-job">Post a New Job</a></li>
+        <li><a href="/org/manage-jobs">Manage Existing Jobs</a></li>
         <li><a href="/pool/dashboard">Hiring Pools</a></li>
         <li><a href="/org/manage-applications">Manage Applications</a></li>
+        <li onclick="logout()">Logout</li>
+
     </ul>
 </div>
 
@@ -130,7 +121,6 @@
     </thead>
     <tbody>
 
-    <!-- Loop through jobPosts and display each row -->
     <tr th:each="job, rowStat : ${jobPosts}">
         <td>
             <p class="job-name" th:text="${job.getJobTitle()}">Software Engineer</p>
@@ -152,8 +142,7 @@
             <p class="job-location" th:text="${job.getLocation()}">London, UK</p>
         </td>
         <td>
-            <!-- Add an onclick event to call the JavaScript function openPopup() -->
-            <a href="#" onclick="openPopup(rowStat)">Edit</a>
+            <a th:href="/org/editjob"><p th:value="${job.getId()}">Close applications</p></a>
         </td>
     </tr>
     <!-- If the list is empty, display a message -->
@@ -162,8 +151,6 @@
     </tr>
     </tbody>
 </table>
-
-
 
 </body>
 </html>

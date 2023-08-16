@@ -33,12 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/styles/**").permitAll() // URLs that are accessible without authentication
                 .antMatchers("/icon/**").permitAll()
                 .antMatchers("/images/**").permitAll()
-                .anyRequest().authenticated() // Any other URLs require authentication
-                 // URL to redirect after successful login
+                .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutUrl("/logout") // URL for logout
-                .logoutSuccessUrl("/applicants/login") // URL to redirect after successful logout
+                .logoutSuccessUrl("/applicants/login")
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied"); // Custom access denied page
     }

@@ -61,30 +61,32 @@ public class FileController {
             @RequestParam("resume") MultipartFile file, @RequestParam("jobpost")int jobPost
             ) throws IOException {
 
-        // Access the uploaded file using the 'file' parameter
-        // Process other form fields (firstName, lastName, email, and message) as needed
-
-        // For example, you can save the file to a directory or perform other operations
-        // For demonstration purposes, we'll just print the file name and other form fields.
-        JobPost jobPost1 = new JobPost();
-        jobPost1.setId(jobPost);
-        jobService.update(jobPost,jobService.getjobPostbyId(jobPost).getTotalapplicant()+1);
+        boolean checkifdataexists = applicantJobHistoryService.findbyappidandjobid(jobPost,functions.getApplicant().getId());
+        if(!checkifdataexists) {
+            JobPost jobPost1 = new JobPost();
+            jobPost1.setId(jobPost);
+            jobService.update(jobPost, jobService.getjobPostbyId(jobPost).getTotalapplicant() + 1);
 
 
-       String url =  fileService.uploadFile(file);
-        ApplicantJobHistory applicantJobHistory = new ApplicantJobHistory();
-        applicantJobHistory.setApplicant_id(functions.getApplicant());
-        applicantJobHistory.setJob_id(jobPost1);
-        applicantJobHistory.setDate(functions.getdate());
-        applicantJobHistory.setStatus("Open");
-        applicantJobHistory.setUrl(url);
-        applicantJobHistoryService.insert(applicantJobHistory);
-        return ResponseEntity.ok(" File uploaded successfully");
+            String url = fileService.uploadFile(file);
+            ApplicantJobHistory applicantJobHistory = new ApplicantJobHistory();
+            applicantJobHistory.setApplicant_id(functions.getApplicant());
+            applicantJobHistory.setJob_id(jobPost1);
+            applicantJobHistory.setDate(functions.getdate());
+            applicantJobHistory.setStatus("Open");
+            applicantJobHistory.setUrl(url);
+
+            applicantJobHistoryService.insert(applicantJobHistory);
+            return ResponseEntity.ok(" File uploaded successfully");
+        }
+        else {
+            return ResponseEntity.ok(" You have already applied for this job" );
+
+        }
 
 
     }
 
-    //Delete file
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteFile(
             @RequestParam String fileName) {

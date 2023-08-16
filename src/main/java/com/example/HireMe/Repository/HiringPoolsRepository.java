@@ -11,4 +11,7 @@ public interface HiringPoolsRepository extends JpaRepository<HiringPools,Long> {
     @Query("SELECT j FROM HiringPools j WHERE j.pool_name = :poolname")
 
     HiringPools getHiringPoolsByPool_name(@Param("poolname") String name);
+    @Query("SELECT j FROM HiringPools j WHERE j.pool_id = :poolid")
+
+    HiringPools getHiringPoolsByPool_id(@Param("poolid") int id);
 }

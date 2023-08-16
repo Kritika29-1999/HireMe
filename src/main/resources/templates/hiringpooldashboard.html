@@ -4,11 +4,14 @@
     <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
     <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
     <link th:href="@{/styles/css/hiringpool.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
     <title>Hiring Pools</title>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Quicksand', sans-serif;
             background-color: #f5f5f5;
         }
 
@@ -123,6 +126,8 @@
         <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
         <li><a href="/pool/dashboard">Hiring Pools</a></li>
         <li><a href="/org/manage-applications">Manage Applications</a></li>
+        <li onclick="logout()">&#x23FB;</li>
+
     </ul>
 </div>
 
@@ -136,22 +141,26 @@
             <tr>
                 <th>Serial Number</th>
                 <th>Pool Name</th>
-                <th>Unsubscribe</th>
+                <th>See referrals received</th>
 
             </tr>
             <tr th:each="hiringPool, index : ${hiringPoolsList}">
                 <td th:text="${index.count}"></td>
                 <td th:text="${hiringPool.getPoolid().getPool_name()}"></td>
-                <td>Unsubscribe here</td>
+                <form th:action="@{/pool/getreferredcandidates}">
+                    <input type="hidden" th:value="${hiringPool.getPoolid().getPool_id()}" name="poolid">
+                <td><button type="submit"> <a>See referrals received for this pool of job</a></button></td>
+                </form>
 
 
             </tr>
         </table>
     </th:block>
     <p class="no-data-msg" th:unless="${hiringPoolsList.size() > 0}">No hiring pools found.</p>
-    <form onclick="openPopup()" >
-        <button type="button" class="plus-button">+</button>
-    </form>
+        <form onclick="openPopup()">
+            <button type="button" class="plus-button">+</button>
+        </form>
+
 </div>
 
 
@@ -172,6 +181,9 @@
     <button onclick="closePopup()">Close</button>
 </div>
 <script>
+    function logout(){
+        window.location.href = "/session/logout";
+    }
 
     function openPopup() {
         var popupContainer = document.getElementById('popupContainer');

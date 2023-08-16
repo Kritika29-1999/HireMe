@@ -86,31 +86,27 @@
     <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
     <li><a href="/pool/dashboard">Hiring Pools</a></li>
     <li><a href="/org/manage-applications">Manage Applications</a></li>
+    <li onclick="logout()">&#x23FB;</li>
+
   </ul>
 </div>
 
 <div class="head">
   <h2>Refer your perfect applicant</h2>
 </div>
-
+<form id="referralForm" th:action="@{/pool/storereferrals}" method="post">
 <div class="table-container">
   <th:block th:if="${orgsubscribedpools.size() > 0}">
     <table class="table">
       <tr>
         <th>Serial Number</th>
         <th>Pool Name</th>
-        <th>List of Skills</th>
-        <th>Percentage of Match</th>
         <th>Select</th>
       </tr>
       <tr th:each="hiringPool, index : ${orgsubscribedpools}">
         <td th:text="${index.count}"></td>
         <td th:text="${hiringPool.getPoolid().getPool_name()}"></td>
-        <td>
-            <li>SkillList</li>
-        </td>
-        <td>100%</td>
-        <td><input type="checkbox" class="checkbox-input" /></td>
+        <td><input type="checkbox"  class="checkbox-input" th:value="${hiringPool.getPoolid().getPool_id()}" /></td>
       </tr>
     </table>
   </th:block>
@@ -118,20 +114,31 @@
 </div>
 
 <div class="btn-container">
-  <button class="action-btn" id="referBtn" disabled>Refer Selected</button>
+  <input type="hidden" name="jobPostId" th:value="${jobPostId}">
+  <input type="hidden" name="applicantid" th:value="${applicantid}">
+  <input type="hidden" id="checkboxresult" name="selectedCheckboxes">
+  <button class="action-btn" id="referBtn">Refer Selected</button>
 </div>
-
-<!-- JavaScript code to enable/disable the "Refer Selected" button -->
+</form>
 <script>
-  const checkboxInputs = document.querySelectorAll('.checkbox-input');
-  const referBtn = document.getElementById('referBtn');
+  function logout(){
+    window.location.href = "/session/logout";
+  }
+  document.getElementById('referBtn').onclick = function() {
+    var checkboxes = document.querySelectorAll('.checkbox-input');
+    var selectedCheckboxes = [];
 
-  checkboxInputs.forEach((checkbox) => {
-    checkbox.addEventListener('change', () => {
-      referBtn.disabled = !checkboxInputs.some((input) => input.checked);
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        selectedCheckboxes.push(checkbox.value);
+      }
     });
-  });
+    document.getElementById("checkboxresult").value = selectedCheckboxes;
+
+    document.getElementById('referralForm').submit();
+  };
 </script>
+
 
 </body>
 </html>

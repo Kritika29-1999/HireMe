@@ -3,6 +3,10 @@
     color: white;
     padding: 10px;
 }
+body{
+    font-family: 'Quicksand', sans-serif;
+
+}
 
 .line {
     width: 80%;

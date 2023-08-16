@@ -13,44 +13,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Athiti&display=swap" rel="stylesheet">
     <title>Profile Page</title>
 </head>
-<body style="display: flex;
-    justify-content: center;
-    align-items: center;">
+<body >
 <script>
+    document.addEventListener("DOMContentLoaded",function (){
+        const image = document.getElementById("threedots");
+        const navdiv = document.getElementById("navdiv");
+        const mainbox = document.getElementById("mainbox");
+
+
+        function navshow(event){
+            navdiv.style.visibility = "visible";
+            navdiv.style.transition = "width 5s"
+            event.stopPropagation();
+
+
+        }
+        function navhide(){
+            if(navdiv.style.visibility=="visible")
+                navdiv.style.visibility = "hidden";
+
+        }
+        image.addEventListener("click",navshow);
+        mainbox.addEventListener("click",navhide);
+    });
+    function profileredirect(){
+        window.location.href = "/user/profile";
+
+    }
+    function jobshowredirect(){
+        window.location.href = "/user/jobs";
+
+    }
+    function homeredirect(){
+        window.location.href = "/user/dashboard";
+
+    }
+    function logout(){
+        window.location.href = "/session/logout";
+
+    }
+
 
 </script>
-<div class="middlebox">
+
+<div class="tab">
+    <div class="inner-div" id="navdiv">
+        <img style="height:auto; width: 60%; border-radius: 100%" th:src="@{/images/1.jpg}">
+        <br>
+        <h1 class="head" style="color: white;font-family: 'Ysabeau SC', sans-serif;font-size: xx-large" th:text="${firstname + ' ' + lastname}">mocking text</h1>
+        <br>
+        <div style="background-color: rgba(7,0,207,0.75);height: inherit;width: 100%">
+            <check onclick="homeredirect()" >Home</check>
+            <br>
+            <check onclick="profileredirect()" >My Profile</check>
+            <br>
+            <check onclick="jobshowredirect()">My Jobs</check>
+            <br>
+            <check onclick="logout()">Logout</check>
+
+
+        </div>
+    </div>
+    <img id="threedots" class="image" onclick="navshow()" th:src="@{/icon/dots.png}" style="height: 50%; width: auto; margin-left: 1%; margin-top: 2% ">
+</div>
+
+<div class="middlebox" id="mainbox" style="display: flex;
+    justify-content: center;
+    align-items: center;">
     <div class="inline" style="height: 20vh;width: fit-content">
-        <img th:src="@{/images/3.jpg}" style="height: 20vh;border-radius: 5%" width="auto">
+        <img th:src="@{/icon/icon.jpeg}" style="height: 20vh;border-radius: 5%" width="auto">
     </div>
     <div class="inline" style="height: fit-content;width: 60%">
-        <h1 class="head" style="color: black;text-align: left;font-family: 'Athiti', sans-serif;font-size: xx-large" th:text="${firstname + ' ' + lastname}">mocking text</h1>
-        <p style="text-align: left;font-family: 'Athiti', sans-serif;font-size: medium;color: rgba(0,0,0,0.7)">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        <h1 class="head" style="color: black;text-align: left;font-family: 'Athiti', sans-serif;font-size: xx-large" th:text="${applicant.getFirstname() + ' ' + applicant.getLastname()}">mocking text</h1>
+        <p style="font-family: 'Athiti', sans-serif; font-size: medium; color: rgba(0,0,0,0.7)"
+           th:if="${totalreferrals != null}"
+           th:text="'Profile rating: &#11088;&#11088;&#11088;&#11088;&#11088;(' + ${totalreferrals} + ')'">
+        </p>
+        <p th:text="${applicant.getProfiledesc()}" style="text-align: left;font-family: 'Athiti', sans-serif;font-size: large;color: rgba(0,0,0,0.7)">
+        </p>
     </div>
     <div class="inline" style="height: 50vh;width: 100%">
 
         <table class="my-table">
 
             <tr>
-                <td>Row 1, Cell 1</td>
-                <td>Row 1, Cell 2</td>
+                <td>Email</td>
+                <td th:text="${applicant.getEmail()}">Row 1, Cell 2</td>
             </tr>
             <tr>
-                <td>Row 2, Cell 1</td>
-                <td>Row 2, Cell 2</td>
+                <td>Phone Nos.</td>
+                <td th:text="${applicant.getPhone()}">Row 2, Cell 2</td>
             </tr>
             <tr>
-                <td>Row 3, Cell 1</td>
-                <td>Row 3, Cell 2</td>
+                <td>Date of Birth</td>
+                <td th:text="${applicant.getDob()}">Row 3, Cell 2</td>
             </tr>
             <tr>
-                <td>Row 4, Cell 1</td>
-                <td>Row 4, Cell 2</td>
+                <td>Designation</td>
+                <td th:text="${applicant.getDesignation()}">Row 4, Cell 2</td>
             </tr>
-            <tr>
-                <td>Row 5, Cell 1</td>
-                <td>Row 5, Cell 2</td>
-            </tr>
+
         </table>
 
     </div>

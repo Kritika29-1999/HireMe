@@ -38,6 +38,9 @@ public class Applicant implements UserDetails {
     @Column(name = "phone_nos")
 
     private String phone;
+    @Column(name = "Profile_description")
+
+    private String profiledesc;
     @Column(name = "verified")
 
     private boolean verified;
@@ -57,6 +60,14 @@ public class Applicant implements UserDetails {
     @Column(name = "password")
 
     private String password;
+
+    public String getProfiledesc() {
+        return profiledesc;
+    }
+
+    public void setProfiledesc(String profiledesc) {
+        this.profiledesc = profiledesc;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

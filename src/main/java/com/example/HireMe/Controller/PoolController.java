@@ -22,15 +22,24 @@ public class PoolController {
     private final HiringPoolsSkillsRepository hiringPoolsSkillsRepository;
     private final HiringPoolsService hiringPoolsService;
     private final JobSkillsService jobSkillsService;
-     Functions functions = new Functions();
+    private final JobService jobService;
+    private final ApplicantService applicantService;
+    private final ReferredCandidateHistoryService referredCandidateHistoryService;
+    private final ApplicantJobHistoryService applicantJobHistoryService;
 
-    public PoolController(SkillsService skillsService, OrganisationHiringPoolsService organisationHiringPoolsService, HiringPoolsSkillsService hiringPoolsSkillsService, HiringPoolsSkillsRepository hiringPoolsSkillsRepository, HiringPoolsService hiringPoolsService, JobSkillsService jobSkillsService) {
+    Functions functions = new Functions();
+
+    public PoolController(SkillsService skillsService, OrganisationHiringPoolsService organisationHiringPoolsService, HiringPoolsSkillsService hiringPoolsSkillsService, HiringPoolsSkillsRepository hiringPoolsSkillsRepository, HiringPoolsService hiringPoolsService, JobSkillsService jobSkillsService, JobService jobService, ApplicantService applicantService, ReferredCandidateHistoryService referredCandidateHistoryService, ApplicantJobHistoryService applicantJobHistoryService) {
         this.skillsService = skillsService;
         this.organisationHiringPoolsService = organisationHiringPoolsService;
         this.hiringPoolsSkillsService = hiringPoolsSkillsService;
         this.hiringPoolsSkillsRepository = hiringPoolsSkillsRepository;
         this.hiringPoolsService = hiringPoolsService;
         this.jobSkillsService = jobSkillsService;
+        this.jobService = jobService;
+        this.applicantService = applicantService;
+        this.referredCandidateHistoryService = referredCandidateHistoryService;
+        this.applicantJobHistoryService = applicantJobHistoryService;
     }
 
     @GetMapping("/dashboard")
@@ -121,8 +130,32 @@ public class PoolController {
     }
 
 
-
+        model.addAttribute("jobPostId",jobPostId);
         model.addAttribute("orgsubscribedpools",mymatchedpools);
+    model.addAttribute("applicantid",applicantid);
         return "referralpage";
     }
+    @PostMapping("/storereferrals")
+    public String storereferrals(@RequestParam("jobPostId")int jobPostId,@RequestParam("applicantid") int applicantid,@RequestParam("selectedCheckboxes") List<Integer> selectedCheckboxes){
+        for(int hiringPoolid:selectedCheckboxes)
+        {
+            ReferredCandidateHistory referredCandidateHistory = new ReferredCandidateHistory();
+            referredCandidateHistory.setRefby(functions.getOrganisation());
+            referredCandidateHistory.setJobid(jobService.getjobPostbyId(jobPostId));
+            referredCandidateHistory.setRefcandidate(applicantService.findByID(applicantid));
+            referredCandidateHistory.setRefto(hiringPoolsService.getHiringpoolbyid(hiringPoolid));
+            referredCandidateHistoryService.insertvalue(referredCandidateHistory);
+            applicantJobHistoryService.setstatus( jobPostId,applicantid);
+        }
+        return "redirect:/pool/dashboard";
+        }
+    @GetMapping("/getreferredcandidates")
+    public String getreferredcandidates(@RequestParam("poolid") int poolid,Model model)
+    {
+       List<Object> rf = referredCandidateHistoryService.getlistfrompoolidwithurl(poolid);
+       model.addAttribute("referredcandidatehistory",rf);
+        return "referredcandidates";
+    }
+
+
 }

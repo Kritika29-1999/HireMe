@@ -39,6 +39,22 @@
    window.location.href = "/user/profile";
 
  }
+ function jobshowredirect(){
+   window.location.href = "/user/jobs";
+
+ }
+ function logout(){
+   window.location.href = "/session/logout";
+
+
+ }
+ function homeredirect(){
+   window.location.href = "/user/dashboard";
+
+ }
+
+
+
 
 
 </script>
@@ -49,11 +65,13 @@
     <h1 class="head" style="color: white;font-family: 'Ysabeau SC', sans-serif;font-size: xx-large" th:text="${firstname + ' ' + lastname}">mocking text</h1>
     <br>
     <div style="background-color: rgba(7,0,207,0.75);height: inherit;width: 100%">
+      <check onclick="homeredirect()" >Home</check>
+      <br>
       <check onclick="profileredirect()" >My Profile</check>
       <br>
-      <check>My Jobs</check>
+      <check onclick="jobshowredirect()">My Jobs</check>
       <br>
-      <check>Logout</check>
+      <check onclick="logout()">Logout</check>
 
 
     </div>

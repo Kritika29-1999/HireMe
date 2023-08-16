@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+  <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+  <title>Referrals</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .entity-card {
+      background-color: #ffa500;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .entity-card:hover {
+      transform: scale(1.05);
+    }
+
+    .entity-card h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .entity-card p {
+      color: #fff;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+<script>
+  function logout(){
+    window.location.href = "/session/logout";
+  }
+</script>
+<div class="navbar">
+  <ul>
+    <li><a href="/org/post-job">Post a new Job</a></li>
+    <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
+    <li><a href="/pool/dashboard">Hiring Pools</a></li>
+    <li><a href="/org/manage-applications">Manage Applications</a></li>
+    <li onclick="logout()">&#x23FB;</li>
+
+  </ul>
+</div>
+<div class="container">
+  <div class="entity-card" th:each="refhistory : ${referredcandidatehistory}">
+    <h2 th:text="'Referred By: '+${refhistory.getRefby().getOrgname()}"></h2>
+    <p th:text="'Organisation email: '+${refhistory.getRefby().getEmail()}"></p>
+    <h3 th:text="'Candidate Name:'+${refhistory.getRefcandidate().getFirstname()+' '+refhistory.getRefcandidate().getLastname()}"></h3>
+    <p th:text="'Candidate Email: '+${refhistory.getRefcandidate().getEmail()}"></p>
+
+  </div>
+
+</div>
+
+
+</body>
+
+</html>

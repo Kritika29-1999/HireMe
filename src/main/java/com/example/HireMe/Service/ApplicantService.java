@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class ApplicantService {
 
+
     private final ApplicantRepository applicantRepository;
 
     public ApplicantService(ApplicantRepository applicantRepository) {

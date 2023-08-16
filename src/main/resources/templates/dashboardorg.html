@@ -1,27 +1,94 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
-  <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+    <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+    <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@500;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@100&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
-  <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <title>Dashboard</title>
 </head>
-<body>
-<div class="navbar">
-    <ul>
-        <li><a href="/org/post-job">Post a new Job</a></li>
-        <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
-        <li><a href="/pool/dashboard">Hiring Pools</a></li>
-        <li><a href="/org/manage-applications">Manage Applications</a></li>
-    </ul>
-</div>
+<style>
+    body{
+        font-family: 'Quicksand', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 20px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        height: 50vh;
+    }
+
+
+
+    .logout {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .logout:hover {
+        color: #e74c3c;
+    }
+</style>
+<script>
+    function logout(){
+        window.location.href = "/session/logout";
+    }
+</script>
+<body>
+<div class="container">
+    <div class="logout" onclick="logout()">Logout &#x23FB;</div>
+
+    <div class="dashboard">
+        <div class="card">
+            <h2><a href="/org/post-job">Post a new Job</a></h2>
+            <p>Create and publish new job openings.</p>
+        </div>
+        <div class="card">
+            <h2><a href="/org/manage-jobs">Manage existing Jobs</a></h2>
+            <p>Edit, update, or remove posted jobs.</p>
+        </div>
+        <div class="card">
+            <h2><a href="/pool/dashboard">Hiring Pools</a></h2>
+            <p>Explore and manage candidate pools.</p>
+        </div>
+        <div class="card">
+            <h2><a href="/org/manage-applications">Manage Applications</a></h2>
+            <p>Review and respond to submitted job applications.</p>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

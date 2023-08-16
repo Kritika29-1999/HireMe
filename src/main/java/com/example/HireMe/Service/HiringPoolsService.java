@@ -17,4 +17,8 @@ public class HiringPoolsService {
 
        return hiringPoolsRepository.getHiringPoolsByPool_name(name);
     }
+    public HiringPools getHiringpoolbyid(int id){
+
+        return hiringPoolsRepository.getHiringPoolsByPool_id(id);
+    }
 }

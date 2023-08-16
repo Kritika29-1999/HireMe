@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/styles/css/dashboard.css}" rel="stylesheet" />
+  <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Applications</title>
+  <style>
+    body{
+      font-family: 'Quicksand', sans-serif;
+      background-color: #F4F4F4;
+    }
+    h1{
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    th{
+      padding: 10px;
+      text-align: left;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #D1D5DB;
+    }
+    .my-table{
+      min-width: 80vh;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+<script>
+  document.addEventListener("DOMContentLoaded",function (){
+    const image = document.getElementById("threedots");
+    const navdiv = document.getElementById("navdiv");
+    const mainbox = document.getElementById("mainbox");
+
+
+    function navshow(event){
+      navdiv.style.visibility = "visible";
+      navdiv.style.transition = "width 5s"
+      event.stopPropagation();
+
+
+    }
+    function navhide(){
+      if(navdiv.style.visibility=="visible")
+        navdiv.style.visibility = "hidden";
+
+    }
+
+    image.addEventListener("click",navshow);
+    mainbox.addEventListener("click",navhide);
+  });
+  function profileredirect(){
+    window.location.href = "/user/profile";
+
+  }
+  function logout(){
+    window.location.href = "/session/logout";
+
+  }
+  function jobshowredirect(){
+    window.location.href = "/user/jobs";
+
+  }
+  function homeredirect(){
+    window.location.href = "/user/dashboard";
+
+  }
+
+
+
+
+</script>
+
+<div class="tab">
+  <div class="inner-div" id="navdiv">
+    <img style="height:auto; width: 60%; border-radius: 100%" th:src="@{/images/1.jpg}">
+    <br>
+    <h1 class="head" style="color: white;font-family: 'Ysabeau SC', sans-serif;font-size: xx-large" th:text="${applicant.getFirstname() + ' ' + applicant.getLastname()}">mocking text</h1>
+    <br>
+    <div style="background-color: rgba(7,0,207,0.75);height: inherit;width: 100%">
+      <check onclick="homeredirect()" >Home</check>
+<br>
+      <check onclick="profileredirect()" >My Profile</check>
+      <br>
+      <check onclick="jobshowredirect()">My Jobs</check>
+      <br>
+      <check onclick="logout()">Logout</check>
+
+
+    </div>
+  </div>
+  <img id="threedots" class="image" onclick="navshow()" th:src="@{/icon/dots.png}" style="height: 50%; width: auto; margin-left: 1%; margin-top: 2% ">
+</div>
+
+<div class="my-table" id="mainbox">
+  <h1>Job Applications</h1>
+  <table>
+    <thead style="background-color: #E5E7EB;">
+    <tr>
+      <th>Job Title</th>
+      <th>Organisation Name</th>
+      <th>Total Applicants</th>
+      <th>Status</th>
+      <th>Date Applied</th>
+      <th>Resume Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="border-bottom: 1px solid ;" th:each="applicanthistory:${allapplicantjobs}">
+      <td style="padding: 10px;" th:text="${applicanthistory.getJob_id().getJobTitle()}">Sample Organization</td>
+      <td style="padding: 10px;" th:text="${applicanthistory.getJob_id().getPosted_by().getOrgname()}">Sample Organization</td>
+      <td style="padding: 10px;" th:text="${applicanthistory.getJob_id().getTotalapplicant()}">100</td>
+      <td style="padding: 10px;" th:text="${applicanthistory.getStatus()}">In Review</td>
+      <td style="padding: 10px;" th:text="${applicanthistory.getDate()}">2023-08-07</td>
+
+      <td style="padding: 10px;">
+        <a style="color: #3B82F6; text-decoration: underline;" th:href="${applicanthistory.getUrl()}">Download Resume</a>
+      </td>
+    </tr>
+    <!-- End of Thymeleaf loop -->
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

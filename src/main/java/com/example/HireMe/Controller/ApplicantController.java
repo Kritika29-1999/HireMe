@@ -42,11 +42,10 @@ public class ApplicantController {
     public String submitForm(@ModelAttribute("applicant") Applicant applicant) {
         LocalDate localDate = LocalDate.now();
 
-        // Convert LocalDate to Date
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         applicant.setJoined(date);
         applicantService.save(applicant);
-        return "mainForm"; // Return the name of the success view
+        return "applicantslogin";
     }
     @GetMapping("/dashboard")
     public String showApplicantDashboard(Model model) {

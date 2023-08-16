@@ -1,39 +1,113 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
     <link th:href="@{/styles/css/result.css}" rel="stylesheet" />
     <link th:href="@{/styles/css/form.css}" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .job-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.3s;
+        }
+
+        .job-card:hover {
+            background-color: #f7f7f7;
+        }
+
+        .job-details {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #393ac6;
+            margin-bottom: 5px;
+        }
+
+        .job-info {
+            font-size: 14px;
+            color: rgba(85, 85, 85, 0.78);
+            margin-bottom: 10px;
+        }
+
+        .job-location {
+            font-weight: bold;
+        }
+
+        .apply-button {
+            padding: 8px 16px;
+            background-color: #393ac6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .apply-button:hover {
+            background-color: #2c2e9e;
+        }
+
+        .no-jobs {
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-<div class="scale-up-center" style="height: 200px;width: 200px;"></div>
-<table>
-
-    <tbody>
-        <tr th:each="job : ${jp}">
-            <td>
-            <div style="height: fit-content; display:inline-block;width: 40vw;box-shadow: black;padding-top: 5px;padding-bottom: 10px;padding-left:10px;border-color: #393ac6;border-style: double">
-
-            <p style="display: inline-block;width:max-content;text-align: left;float: right;font-size: small;
-    padding-right: 10px; color: rgba(85,85,85,0.78)" th:text="${job.dateposted}">No Posting date</p>
-                <p style="display: inline-block;text-align: right;" class="jobname" th:text="${job.JobTitle}">No Job name</p>
-
-               <p>Location: </p> <p th:text=" ${job.location}">No location</p>
-            <p th:text="${job.detail}">No status</p>
-            <p th:text="${job.totalapplicant}">0</p>
-                <a th:href="@{/user/apply/{id}(id=${job.id})}">
-                    <button class="box" style="line-height: 71.945px;">Apply Now</button>
-                </a>
-            </div>
-            </td>
-        </tr>
-        <!-- If the list is empty, display a message -->
-        <tr th:if="${jp.empty}">
-            <td colspan="5">No jobs found.</td>
-        </tr>
-    <!-- Iterate over the list jp -->
-
-    </tbody>
-</table>
+<div class="container">
+    <h1>Job Listings</h1>
+    <div class="job-list">
+        <table>
+            <tbody>
+            <tr th:each="job : ${jp}">
+                <td>
+                    <div class="job-card">
+                        <div class="job-details">
+                            <p class="job-title" th:text="${job.JobTitle}">No Job name</p>
+                            <p class="job-info"><span class="job-location">Location:</span> <span th:text="${job.location}">No location</span></p>
+                            <p class="job-info">Posted on: <span th:text="${job.dateposted}">No Posting date</span></p>
+                            <p class="job-info" th:text="${job.detail}">No status</p>
+                        </div>
+                        <a th:href="@{/user/apply/{id}(id=${job.id})}" class="apply-button">Apply Now</a>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${jp.empty}">
+                <td colspan="5" class="no-jobs">No jobs found.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
