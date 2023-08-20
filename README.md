@@ -4,5 +4,4 @@ I have developed a dynamic job portal that serves as a bridge between job seeker
 Tech stack used:
 Thymeleaf,
 Spring, and
-Google cloud platform (GCP) for database and storage.
-
+Google cloud platform (GCP) for database and storage. this application will not run because of the security purpose, the google credentials have been removed.
