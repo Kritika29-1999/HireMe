@@ -112,7 +112,7 @@
       <div class="job-location" th:text=" ${jobPost.getLocation()}">DummyText</div>
       <div class="job-status" th:text=" ${jobPost.getStatus()}">DummyText</div>
       <div class="job-date" th:text=" ${jobPost.getDateposted()}">DummyText</div>
-      <div class="job-total-applicants" th:text=" ${jobPost.getTotalapplicant()}">DummyText</div>
+      <div class="job-total-applicants">Total Applicants: <span th:text="${jobPost.getTotalapplicant()}"></div>
     </div>
     <form method="post" th:action="@{/org/showApplicants}">
       <input type="hidden" name="jobPostId" th:value="${jobPost.id}" />

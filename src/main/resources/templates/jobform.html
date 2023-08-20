@@ -14,31 +14,111 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     <title>Dashboard</title>
 
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 0;
+
+        }
+        .maincontainer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .form-container label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #2563EB;
+        }
+        .form-container .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .form-container .skill-checkbox {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-container .skill-checkbox input[type="checkbox"] {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .form-container .skill-checkbox label {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 
 <body>
-
 <div class="navbar">
     <ul>
         <li><a href="/org/post-job">Post a new Job</a></li>
         <li><a href="/org/manage-jobs">Manage existing Jobs</a></li>
         <li><a href="/pool/dashboard">Hiring Pools</a></li>
         <li><a href="/org/manage-applications">Manage Applications</a></li>
+        <li onclick="logout()">&#x23FB;</li>
+
     </ul>
 </div>
-<div>
-    <form id="dynamicForm" th:action="@{/org/post-job}" method="post">
+<div class="maincontainer">
+    <form id="dynamicForm" th:action="@{/org/post-job}" method="post" class="form-container">
         <div class="slide" style="display: none;">
             <label for="title">Job Post Title:</label>
             <input type="text" id="title" name="title" required>
         </div>
 
         <div class="slide" style="display: none;">
-            <div th:each="skill : ${skillList}">
-                <input type="checkbox" th:id="'skill' + ${skill.getSkill_id()}" th:name="'skills'" th:value="${skill.getSkillname()}">
-                <label th:for="'skill' + ${skill.getSkill_id()}" th:text="${skill.getSkillname()}"></label>
+            <div class="skills-container">
+                <div th:each="skill : ${skillList}" class="skill-checkbox">
+                    <input type="checkbox" th:id="'skill' + ${skill.getSkill_id()}" th:name="'skills'" th:value="${skill.getSkillname()}">
+                    <label th:for="'skill' + ${skill.getSkill_id()}" th:text="${skill.getSkillname()}"></label>
+                </div>
             </div>
         </div>
+
 
         <div class="slide" style="display: none;">
             <label for="location">Job Location:</label>
@@ -51,8 +131,6 @@
         </div>
 
 
-        <!-- Add more slides as needed -->
-
         <button type="button" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
         <button type="button" id="nextBtn" onclick="changeSlide(1)">Next</button>
         <button type="submit" id="submitBtn" style="display: none;">Submit</button>
@@ -60,9 +138,10 @@
     </form>
 </div>
 <script>
+
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.getElementById('prevBtn'); // Add this line
+    const prevBtn = document.getElementById('prevBtn');
 
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
@@ -72,11 +151,10 @@
         currentSlide = (n + slides.length) % slides.length;
         slides[currentSlide].style.display = 'block';
 
-        // Show or hide buttons based on the current slide index
         if (currentSlide === 0) {
-            prevBtn.style.display = 'none'; // Hide previous button on the first slide
+            prevBtn.style.display = 'none';
         } else {
-            prevBtn.style.display = 'block'; // Show previous button on other slides
+            prevBtn.style.display = 'block';
         }
 
         if (currentSlide === slides.length - 1) {

@@ -84,8 +84,13 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Job Listings</h1>
+<div class="container" style="height: fit-content">
+    <div>
+        <h1>Job Listings</h1>
+        <p style="text-decoration: underline;color: #3936C6;cursor: pointer" onclick="redirecttohome()"> Back to home</p>
+    </div>
+
+
     <div class="job-list">
         <table>
             <tbody>
@@ -96,7 +101,11 @@
                             <p class="job-title" th:text="${job.JobTitle}">No Job name</p>
                             <p class="job-info"><span class="job-location">Location:</span> <span th:text="${job.location}">No location</span></p>
                             <p class="job-info">Posted on: <span th:text="${job.dateposted}">No Posting date</span></p>
-                            <p class="job-info" th:text="${job.detail}">No status</p>
+                            <p class="job-info" th:text="${job.getStatus()}">No status</p>
+                            <p class="job-info">Details: <span th:text="${job.getDetail()}">No Posting date</span></p>
+
+                            <p class="job-info">Total Applicants <span th:text="${job.getTotalapplicant()}">No Posting date</span></p>
+
                         </div>
                         <a th:href="@{/user/apply/{id}(id=${job.id})}" class="apply-button">Apply Now</a>
                     </div>
@@ -109,5 +118,10 @@
         </table>
     </div>
 </div>
+<script>
+    function redirecttohome(){
+        window.location.href="/user/dashboard";
+    }
+</script>
 </body>
 </html>

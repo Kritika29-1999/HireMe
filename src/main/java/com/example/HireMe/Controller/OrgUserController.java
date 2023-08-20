@@ -51,11 +51,11 @@ public class OrgUserController {
         jobPost.setDetail(desc);
         Organisation organisation = new Organisation();
 
-        // Convert LocalDate to Date
         jobPost.setDateposted(functions.getdate());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         organisation.setId(((Organisation) authentication.getPrincipal()).getId());
         jobPost.setPosted_by(organisation);
+        jobPost.setStatus("Open");
         jobService.save(jobPost);
         List<String> selected = selectedSkills;
         skillsService.storeskills(selected, jobPost);
@@ -66,6 +66,11 @@ public class OrgUserController {
         List<JobPost> jobPosts = jobService.searchJobpost();
         model.addAttribute("jobPosts",jobPosts);
         return "managejobs";
+    }
+    @GetMapping("/editjob/{id}")
+    public String closeapplication(@PathVariable("id") int jobId) {
+        jobPostRepository.setjobstatustoclose(jobId);
+        return "redirect:/org/manage-jobs";
     }
     @GetMapping("/manage-applications")
     public String showApplications(Model model) {
@@ -93,6 +98,8 @@ public class OrgUserController {
         List<ApplicantJobHistory> applicantJobHistory = applicantJobHistoryServiceRepository.getApplicantJobHistoryByJob_id(jobPostId);
 
         model.addAttribute("applicants",applicantJobHistory);
+        model.addAttribute("jobPostId",jobPostId);
+
         return "manageapplicationmain";
     }
 

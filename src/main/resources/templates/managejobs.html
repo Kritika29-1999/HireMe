@@ -30,16 +30,16 @@
         }
 
         th {
-            background-color: #8a2be2; /* Purple color for table heading */
+            background-color: #8a2be2;
             color: white;
         }
 
         tr:nth-child(even) {
-            background-color: #f9f9f9; /* Grey color for even rows */
+            background-color: #f9f9f9;
         }
 
         tr:nth-child(odd) {
-            background-color: #ffffff; /* White color for odd rows */
+            background-color: #ffffff;
         }
 
         td p {
@@ -53,13 +53,13 @@
         }
 
         .job-details {
-            max-height: 40px; /* Set the initial max-height to show only a few lines of text */
+            max-height: 40px;
             overflow: hidden;
             width: fit-content%;
         }
 
         .expanded {
-            max-height: none; /* Expand to show full description */
+            max-height: none;
         }
 
         .see-more-button {
@@ -84,11 +84,11 @@
         const jobDetailsElement = target.previousElementSibling;
 
         if (jobDetailsElement.classList.contains("expanded")) {
-            jobDetailsElement.style.maxHeight = "40px"; // Show only a few lines of text
+            jobDetailsElement.style.maxHeight = "40px";
             jobDetailsElement.classList.remove("expanded");
             target.textContent = "See More";
         } else {
-            jobDetailsElement.style.maxHeight = "none"; // Expand to show full description
+            jobDetailsElement.style.maxHeight = "none";
             jobDetailsElement.classList.add("expanded");
             target.textContent = "See Less";
         }
@@ -142,10 +142,9 @@
             <p class="job-location" th:text="${job.getLocation()}">London, UK</p>
         </td>
         <td>
-            <a th:href="/org/editjob"><p th:value="${job.getId()}">Close applications</p></a>
+            <a th:href="@{/org/editjob/{id}(id=${job.getId()})}"><p>Close applications</p></a>
         </td>
     </tr>
-    <!-- If the list is empty, display a message -->
     <tr th:if="${jobPosts.isEmpty()}">
         <td colspan="7">No jobs found.</td>
     </tr>

@@ -3,18 +3,15 @@ package com.example.HireMe.Controller;
 import com.example.HireMe.Functions;
 import com.example.HireMe.Model.*;
 import com.example.HireMe.FileConfig.FileService;
+import com.example.HireMe.Repository.ApplicantJobHistoryRepository;
 import com.example.HireMe.Repository.JobPostRepository;
 import com.example.HireMe.Service.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +23,7 @@ public class ApplicationContoller {
     private Functions functions = new Functions();
     private final FileService fileService;
     private final JobService jobService;
+    private final ApplicantJobHistoryRepository applicantJobHistoryRepository;
     private final JobSkillsService jobSkillsService;
     private final ApplicantService applicantService;
     private final SkillsService skillsService;
@@ -34,9 +32,10 @@ public class ApplicationContoller {
     private final JobPostRepository jobPostRepository;
     private final ApplicantJobHistoryService applicantJobHistoryService;
 
-    public ApplicationContoller(FileService fileService, JobService jobService, JobSkillsService jobSkillsService, ApplicantService applicantService, SkillsService skillsService, ReferredCandidateHistoryService referredCandidateHistoryService, JobPostRepository jobPostRepository, ApplicantJobHistoryService applicantJobHistoryService) {
+    public ApplicationContoller(FileService fileService, JobService jobService, ApplicantJobHistoryRepository applicantJobHistoryRepository, JobSkillsService jobSkillsService, ApplicantService applicantService, SkillsService skillsService, ReferredCandidateHistoryService referredCandidateHistoryService, JobPostRepository jobPostRepository, ApplicantJobHistoryService applicantJobHistoryService) {
         this.fileService = fileService;
         this.jobService = jobService;
+        this.applicantJobHistoryRepository = applicantJobHistoryRepository;
         this.jobSkillsService = jobSkillsService;
         this.applicantService = applicantService;
         this.skillsService = skillsService;
@@ -70,6 +69,14 @@ public class ApplicationContoller {
 
         return "dashboard";
     }
+    @GetMapping("/updateapplication/{jobid}")
+        public String changeapplication(@PathVariable String jobid){
+        System.out.println(jobid);
+
+        applicantJobHistoryRepository.setstatustowithdrawn(functions.getApplicant().getId(), Integer.parseInt(jobid));
+        return "redirect:/user/jobs";
+        }
+
     @GetMapping("/jobs")
     public String showjobdashboard(Model model) {
 

@@ -1,5 +1,6 @@
 package com.example.HireMe.Controller;
 
+import com.example.HireMe.Functions;
 import com.example.HireMe.Model.Applicant;
 import com.example.HireMe.Repository.ApplicantRepository;
 import com.example.HireMe.Service.ApplicantService;
@@ -23,6 +24,7 @@ public class ApplicantController {
     private final ApplicantRepository applicantRepository;
     private final ApplicantService applicantService;
     private final LocalUserDetailsService localUserDetailsService;
+    private Functions functions = new Functions();
 
     public ApplicantController(ApplicantRepository applicantRepository, ApplicantService applicantService, LocalUserDetailsService localUserDetailsService) {
         this.applicantRepository = applicantRepository;
@@ -71,28 +73,17 @@ public class ApplicantController {
     public String processLoginForm(@RequestParam("email") String email,
                                    @RequestParam("password") String password,
                                    Model model) {
-        // Use the ApplicantService to authenticate the applicant
         boolean authenticated = localUserDetailsService.authenticate(email, password);
 
         if (authenticated) {
             UserDetails userDetails = localUserDetailsService.loadUserByUsername(email);
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            model.addAttribute("firstname",functions.getApplicant().getFirstname());
+
+            model.addAttribute("lastname",functions.getApplicant().getLastname());
 
 
-//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//            if (authentication != null) {
-//                Object principal = authentication.getPrincipal();
-//                // Check if the principal is an instance of UserDetails and then access user details
-//                if (principal instanceof Applicant) {
-//                    Applicant userDetails = (Applicant) principal;
-//                    String username = userDetails.getEmail();
-//                    // ...
-//                }
-//            }
-//            if (authentication != null && authentication.getPrincipal() !=null) {
-//                Applicant applicant = (Applicant) authentication.getPrincipal();
-                // Access and use the user details as needed
 //            }
             return "redirect:dashboard";
         } else {

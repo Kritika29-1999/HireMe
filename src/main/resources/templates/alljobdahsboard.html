@@ -80,6 +80,7 @@
 
 
 
+
 </script>
 
 <div class="tab">
@@ -113,6 +114,8 @@
       <th>Total Applicants</th>
       <th>Status</th>
       <th>Date Applied</th>
+      <th>Withdraw application</th>
+
       <th>Resume Link</th>
     </tr>
     </thead>
@@ -124,11 +127,15 @@
       <td style="padding: 10px;" th:text="${applicanthistory.getStatus()}">In Review</td>
       <td style="padding: 10px;" th:text="${applicanthistory.getDate()}">2023-08-07</td>
 
+      <td th:if="${!applicanthistory.getStatus().equalsIgnoreCase('Withdrawn')}" style="padding: 10px; text-decoration: underline; cursor: pointer"><a th:href="@{/user/updateapplication/{id}(id=${applicanthistory.getJob_id().getId()})}"> Click to withdraw
+     </a></td>
+      <td th:if="${applicanthistory.getStatus().equalsIgnoreCase('Withdrawn')}" style="padding: 10px; text-decoration: underline; cursor: pointer"> Already Withdrawn
+      </td>
+
       <td style="padding: 10px;">
         <a style="color: #3B82F6; text-decoration: underline;" th:href="${applicanthistory.getUrl()}">Download Resume</a>
       </td>
     </tr>
-    <!-- End of Thymeleaf loop -->
     </tbody>
   </table>
 </div>

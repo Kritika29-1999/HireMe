@@ -34,4 +34,8 @@ public class ApplicantJobHistoryService {
 
         return applicantJobHistoryRepository.existsApplicantJobHistoryByApplicant_idIsAndJob_idIs(id,jobPost);
     }
+    public boolean finddatabyjobidappid(int jobPost, int id) {
+
+        return applicantJobHistoryRepository.existsApplicantJobHistoryByApplicant_idIsAndJob_idIs(id,jobPost);
+    }
 }

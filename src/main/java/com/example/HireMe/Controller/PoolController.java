@@ -124,7 +124,7 @@ public class PoolController {
         List<String> poolskils = hiringPoolSkills.stream()
                 .map(poolskill -> poolskill.getSkillid().getSkillname())
                 .collect(Collectors.toList());
-        if(poolskils.containsAll(jobSkills)){
+        if(jobSkills.containsAll(poolskils)){
             mymatchedpools.add(organisationHiringPools);
         }
     }

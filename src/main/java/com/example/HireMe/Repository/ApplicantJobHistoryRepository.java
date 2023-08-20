@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface ApplicantJobHistoryRepository extends JpaRepository<ApplicantJobHistory, Long> {
-    @Query("SELECT j FROM ApplicantJobHistory j WHERE j.job_id.id = :orgId")
+    @Query("SELECT j FROM ApplicantJobHistory j WHERE j.job_id.id = :orgId and j.status != 'Withdrawn'")
 
     List<ApplicantJobHistory> getApplicantJobHistoryByJob_id(@Param("orgId") int id);
     @Query("SELECT j FROM ApplicantJobHistory j WHERE j.applicant_id.id = :appid")
@@ -33,4 +33,9 @@ public interface ApplicantJobHistoryRepository extends JpaRepository<ApplicantJo
             "FROM ApplicantJobHistory ajh " +
             "WHERE ajh.applicant_id.id = :applicantId AND ajh.job_id.id = :jobPostId")
     boolean existsApplicantJobHistoryByApplicant_idIsAndJob_idIs(int applicantId, int jobPostId);
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicantJobHistory ajh SET ajh.status = 'Withdrawn' WHERE ajh.applicant_id.id = :applicantid and ajh.job_id.id=:jobid")
+    void setstatustowithdrawn(int applicantid, int jobid);
 }
+
