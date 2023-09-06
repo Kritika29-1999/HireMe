@@ -139,6 +139,7 @@ public class PoolController {
     public String storereferrals(@RequestParam("jobPostId")int jobPostId,@RequestParam("applicantid") int applicantid,@RequestParam("selectedCheckboxes") List<Integer> selectedCheckboxes){
         for(int hiringPoolid:selectedCheckboxes)
         {
+            //adding comment
             ReferredCandidateHistory referredCandidateHistory = new ReferredCandidateHistory();
             referredCandidateHistory.setRefby(functions.getOrganisation());
             referredCandidateHistory.setJobid(jobService.getjobPostbyId(jobPostId));
