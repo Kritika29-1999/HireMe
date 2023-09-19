@@ -109,7 +109,6 @@
 
     <div class="applicant-name" th:text="${applicant.getApplicant_id().getFirstname()+' '+applicant.getApplicant_id().getLastname()}">John Doe</div>
     <a class="resume-link" th:href="${applicant.getUrl()}">Download Resume</a>
-    <a class="profile-link" href="/applicant_profile/123">Applicant Profile</a>
     <div class="date" th:text="${applicant.getDate()}">Application Date: 2023-08-15</div>
     <div class="status" th:text="${applicant.getStatus()}">Status: Submitted</div>
     <button class="edit-button" th:data="${applicant.getId()}" onclick="openModal(this)">Accept/Decline</button>

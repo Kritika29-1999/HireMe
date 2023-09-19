@@ -71,8 +71,6 @@ public class ApplicationContoller {
     }
     @GetMapping("/updateapplication/{jobid}")
         public String changeapplication(@PathVariable String jobid){
-        System.out.println(jobid);
-
         applicantJobHistoryRepository.setstatustowithdrawn(functions.getApplicant().getId(), Integer.parseInt(jobid));
         return "redirect:/user/jobs";
         }
